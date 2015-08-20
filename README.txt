@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 3.8.3
-Tested up to: 3.9.1
-Stable tag: 1.1.5
+Requires at least: 4.1.4
+Tested up to: 4.2.2
+Stable tag: 1.2.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,12 +17,15 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * TinyMCE table buttons
 * TinyMCE textbook buttons 
 * TinyMCE spell check
+* TinyMCE anchor button
 * Search functionality
-* Creative Commons attribution
+* Creative Commons license attribution
 * Prominent admin buttons (Import, Plugin)
 * Annotation functionality
-* Redistribution capabilities for free, digital versions of your book.
+* Optionally redistributing free, digital versions of your book.
 * Download links to openly licensed textbooks, ready to remix.
+* A remix 'eco-system' — Search and Import chapters from both local and remote instances of PressBooks
+* Disable/enable comments
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
@@ -60,6 +63,24 @@ theme, then activate at the book level. You'll have access to those features and
 3. Activate the `Open Textbooks` theme at the network level
 4. Activate the `Open Textbooks` theme at the book level.
 
+== FAQ ==
+
+= What is an Open Textbook? =
+
+Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them. 
+That’s a different model than traditionally-copyrighted materials. 
+OER are defined as “teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (Hewlett Foundation).
+
+= How do you make a Textbook 'Open'? = 
+
+When creating Open Textbooks and other OERs, we feel it is best to adhere to the five Rs of open education as defined by David Wiley, which are:
+
+1. Retain – i.e. no digital rights management restrictions (DRM), the content is yours to keep, whether you’re the author, instructor or student.
+2. Reuse – you are free to use materials in a wide variety of ways without expressly asking permission of the copyright holder.
+3. Revise – as an educator, you can adapt, adjust, or modify the content to suit specific purposes and make the materials more relevant to your students. This means making it available in a number of different formats and including source files, where possible.
+4. Remix – you or your students can pull together a number of different resources to create something new.
+5. Redistribute – you are free to share with others, so they can reuse, remix, improve upon, correct, review or otherwise enjoy your work.
+
 == Screenshots == 
 
 1. Modified home page 
@@ -71,6 +92,77 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.14 (2015/08/10) =
+* minor tweaks
+* migrating more functionality to PB
+
+= 1.2.13 (2015/07/16) =
+* migrating some functionality to PB
+
+= 1.2.11/12 (2015/07/13) =
+* fix for download link to mPDF on homepage
+
+= 1.2.10 (2015/07/09) =
+* styling change for tables in admin interface
+* migration of table functionality to PB
+
+= 1.2.9 (2015/06/22) =
+* add style for tight/loose tracking 
+* left align h3 tags
+* support for disabling social media buttons
+* bug fix for search and import
+
+= 1.2.8 (2015/05/28) =
+* bug fix
+
+= 1.2.7 (2015/05/26) =
+* add search and import feature for remote instances of PB
+
+= 1.2.6 (2015/04/21) =
+* patch potential xss attack vector
+* adding accessibility button to theme
+* update pdf export to work with new luther parent theme
+* remove automatic theme switch on book creation due to inconsistent behaviour
+* fix php notice messages in search and import
+* fix syntax error in search and import
+
+= 1.2.5 (2015/03/11) = 
+* add table cell border to web and print
+* fix default theme on new book creation
+* add part title to web view
+* fix latest exports returning empty on book titles with periods
+* stability/logic improvements
+
+= 1.2.3 (2015/01/12) =
+* updating ccc documentation
+* adding sub/sup buttons to tinymce
+* css styles to support Jack! 
+* add optional (piwik/google) analytics event tracking code
+* improvements to textbook download page
+
+= 1.2.2 (2014/10/30) =
+* hotfix for inconsistent behaviour on default activation of theme
+
+= 1.2.1 (2014/10/29) = 
+* changes placement of export files on homepage
+* fix for license picker in textbook downloads
+* fix for running header in pdf output (thanks Jack!)
+* adding default book options on new book creation
+
+= 1.2.0 (2014/10/15) =
+* adds ability to enable/disable comments
+* modifies term 'chapter' to 'page'
+* adds contributing authors to the homepage
+* moves location of the plugin settings
+* moves location of textbook downloads, for greater access
+
+= 1.1.7 (2014/09/22) =
+* adds the ability to search and import chapters from within your own instance of PB
+
+= 1.1.6 (2014/08/27) =
+* updating tinymce table plugin to latest version
+* updating tinymce spellcheck plugin to latest version
 
 = 1.1.5 (2014/07/22) =
 * adding anchor button to TinyMCE

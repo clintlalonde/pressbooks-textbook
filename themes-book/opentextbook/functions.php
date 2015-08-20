@@ -10,6 +10,13 @@ function fitzgerald_enqueue_styles() {
 
 add_action( 'wp_print_styles', 'fitzgerald_enqueue_styles' );
 
+function pbt_enqueue_child_theme_styles() {
+    wp_enqueue_style( 'pressbooks-book' );
+    wp_enqueue_style( 'open-textbook' );
+}
+
+add_action( 'wp_enqueue_scripts', 'pbt_enqueue_child_theme_styles', 100 );
+
 /**
  * Returns an html blog of meta elements 
  * 
@@ -44,6 +51,7 @@ function pbt_get_microdata_meta_elements() {
 	    'about' => 'pb_bisac_subject',
 	    'alternativeHeadline' => 'pb_subtitle',
 	    'author' => 'pb_author',
+	    'contributor' => 'pb_contributing_authors',
 	    'copyrightHolder' => 'pb_copyright_holder',
 	    'copyrightYear' => 'pb_copyright_year',
 	    'datePublished' => 'pb_publication_date',
@@ -84,3 +92,81 @@ function pbt_get_microdata_meta_elements() {
 	}
 	return $html;
 }
+
+/**
+ * Modifies 'chapters' to 'page' for text processed in __() to avoid confusion. 
+ * Lightly modified function, original author Lumen Learning
+ * https://github.com/lumenlearning/candela
+ * 
+ * 
+ * @param type $translated
+ * @param type $original
+ * @param type $domain
+ * @return type
+ */
+function pbt_terminology_modify( $translated, $original, $domain ) {
+
+	if ( 'pressbooks' == $domain ) {
+		$modify = array(
+		    "Chapter Metadata" => "Page Metadata",
+		    "Chapter Short Title (appears in the PDF running header)" => "Page Short Title (appears in the PDF running header)",
+		    "Chapter Subtitle (appears in the Web/ebook/PDF output)" => "Page Subtitle (appears in the Web/ebook/PDF output)",
+		    "Chapter Author (appears in Web/ebook/PDF output)" => "Page Author (appears in Web/ebook/PDF output)",
+		    "Chapter Copyright License (overrides book license on this page)" => "Page Copyright License (overrides book license on this page)",
+		    "Promote your book, set individual chapters privacy below." => "Promote your book, set individual page's privacy below.",
+		    "Add Chapter" => "Add Page",
+		    "Reordering the Chapters" => "Reordering the Pages",
+		    "Chapter 1" => "Page 1",
+		    "Imported %s chapters." => "Imported %s pages.",
+		    "Chapters" => "Pages",
+		    "Chapter" => "Page",
+		    "Add New Chapter" => "Add New Page",
+		    "Edit Chapter" => "Edit Page",
+		    "New Chapter" => "New Page",
+		    "View Chapter" => "View Page",
+		    "Search Chapters" => "Search Pages",
+		    "No chapters found" => "No pages found",
+		    "No chapters found in Trash" => "No pages found in Trash",
+		    "Chapter numbers" => "Page numbers",
+		    "display chapter numbers" => "display page numbers",
+		    "do not display chapter numbers" => "do not display page numbers",
+		    "Chapter Numbers" => "Page Numbers",
+		    "Display chapter numbers" => "Display page numbers",
+		    "This is the first chapter in the main body of the text. You can change the " => "This is the first page in the main body of the text. You can change the ",
+		    "text, rename the chapter, add new chapters, and add new parts." => "text, rename the page, add new pages, and add new parts.",
+		    "Only users you invite can see your book, regardless of individual chapter " => "Only users you invite can see your book, regardless of individual page ",
+		);
+
+		if ( isset( $modify[$original] ) ) {
+			$translated = $modify[$original];
+		}
+	}
+
+	return $translated;
+}
+
+/**
+ * Modifies 'chapter' to 'page' for text processed in _x()
+ * Lightly modified function, original author Lumen Learning
+ * https://github.com/lumenlearning/candela
+ * 
+ * @param type $translated
+ * @param type $original
+ * @param type $context
+ * @param type $domain
+ * @return type
+ */
+function pbt_terminology_modify_context( $translated, $original, $context, $domain ) {
+	if ( 'pressbooks' == $domain && 'book' == $context ) {
+		$translated = pbt_terminology_modify( $translated, $original, $domain );
+	}
+	return $translated;
+}
+
+/**** Removing these filters Jume 2015 to remain consistent with the PB documentation *****/
+//add_filter( 'gettext', 'pbt_terminology_modify', 11, 3 );
+//add_filter( 'gettext_with_context', 'pbt_terminology_modify_context', 11, 4 );
+
+// removes incorrect notice on epub/pdf export that the book was created on pressbooks.com
+$GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] = 'not_created_on_pb_com';
+$GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] = 'not_created_on_pb_com';
